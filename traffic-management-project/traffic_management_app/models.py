@@ -16,6 +16,10 @@ class Signal(models.Model):
     right_state = models.BooleanField(default=False)
     front_state = models.BooleanField(default=False)
 
+    car_count = models.PositiveSmallIntegerField(blank=True, default=0)
+    bike_count = models.PositiveSmallIntegerField(blank=True, default=0)
+    truck_count = models.PositiveSmallIntegerField(blank=True, default=0)
+
     def __str__(self):
         return self.signal_id
 
