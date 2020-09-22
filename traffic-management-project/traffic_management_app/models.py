@@ -25,7 +25,7 @@ class Signal(models.Model):
 
 class Density(models.Model):
     signal_id = models.ForeignKey(Signal, on_delete=models.CASCADE)
-    density = models.DecimalField(max_digits=1, decimal_places=1, blank=True)
+    density = models.DecimalField(max_digits=4, decimal_places=4, blank=True)
 
     def __str__(self):
         return self.signal_id

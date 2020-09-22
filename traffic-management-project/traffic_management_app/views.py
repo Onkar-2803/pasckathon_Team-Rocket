@@ -2,8 +2,15 @@ from django.shortcuts import render
 import time
 import numpy as np
 import cv2
+from .models import *
+from django.shortcuts import render, redirect, get_object_or_404
 
-def detection(request):
+def status_of_signals(request):
+    #signals = get_object_or_404()
+    signals = Signal.objects.all()
+    return render(request, 'traffic_management_app/home.html', {'signals' : signals})
+
+def detection(request, Signal_pk):
 
     #car_count=0
     #bike_count=0
@@ -46,6 +53,12 @@ def detection(request):
 
     print('Truck:')
     print(len(truck_count))
+    
+    signal = get_object_or_404(Signal, pk=Signal_pk)
+    signal.car_count = len(cars_count)
+    signal.bike_count = len(bike_count)
+    signal.truck_count = len(truck_count)
+    signal.save()
 
     car = 40
     bike = 10

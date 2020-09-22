@@ -19,5 +19,6 @@ from traffic_management_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('detection', views.detection, name='detection')
+    path('detection/<str:Signal_pk>', views.detection, name='detection'),
+    path('status_of_signals/',views.status_of_signals, name='status_of_signals'),
 ]
