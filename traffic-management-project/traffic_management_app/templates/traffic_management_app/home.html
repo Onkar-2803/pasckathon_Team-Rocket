@@ -10,14 +10,19 @@
 
     {% for i in signals %}
       <b>Signal id : </b> {{ i.signal_id }}
-
+      <br>
       <b>Chowk Name: </b> {{ i.chowk }}
       <br>
+      <!--
         <b>Number of Cars: </b>{{ i.car_count }}
         <br>
         <b>Number of bikes: </b>{{ i.bike_count }}
         <br>
         <b>Number of Trucks: </b>{{ i.truck_count }}
+        <br>-->
+        <b>Density: </b>{{ i.density }}
+        <br>
+        <b>Left signal time: </b>{{ i.left_green_time }}
       <hr>
     {% endfor %}
 

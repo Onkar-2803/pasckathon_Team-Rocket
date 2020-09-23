@@ -1,0 +1,155 @@
+body{
+    background-color: rgb(43, 2, 2);
+    align-items: center;
+}
+.btn1{
+    border:none;
+    outline:none;
+    height:50px;
+    width:100%;
+    background-color: rgb(116, 21, 21);
+    color:white;
+    border-radius:4px;
+    font-weight:bold;
+    
+}
+
+/* .content{
+    display:block;
+} */
+
+ /* form{
+     
+
+} */
+input{
+    border:none;
+    border-bottom:2px black;
+}
+
+.form-row{
+    /* margin-left:50px; */
+    padding:20px;  
+
+}
+
+.btn1:hover{
+    background-color:rgb(83, 2, 2);
+    box-shadow: 0 5px 15px rgba(51, 50, 50, 0.7);
+    color:white;
+
+   
+}
+
+#output{
+    /* background-color: rgba(9, 83, 2, 0.6); */
+    color:black;
+    font-weight:bold;
+    font-size:20px;
+    padding:30px;
+    text-align:center;
+    width:300px;
+    border-radius: 10px;
+    margin-top:20px;
+    margin-left:50px;
+    box-shadow: 0 5px 15px rgba(51, 50, 50, 0.7);
+    animation:text 3s 1;
+
+}
+
+img{
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:150px;
+    margin-left:50px;
+    margin-bottom: 50px;
+    width:1000px;
+    height:500px;
+    border-radius:30px;
+    box-shadow: 0 5px 15px rgba(51, 50, 50, 0.7);
+}
+#hero{
+    background-color: rgb(248, 204, 204);
+    margin-bottom:50px;
+    padding:50px;
+}
+
+.row{
+    align-items: center;
+}
+
+
+
+.navbar-nav a{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue';
+     font-size: 18px;
+     text-transform: uppercase;
+     font-weight: 400;
+ }
+
+ .navbar-light .navbar-brand{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue';
+     color:#fff;
+     font-size: 25px;
+     text-transform: uppercase;
+     font-weight: 100;
+     letter-spacing: 2px;
+
+ }
+
+ .navbar-light .navbar-nav .nav-link{
+     color:#fff;
+     
+ }
+
+ .navbar-nav {
+     text-align: center;
+     
+
+ }
+
+ .nav-link{
+     padding:.2rem 1rem;
+ }
+
+ @media only screen and (max-width:767px){
+     .navbar-nav.ml-auto{
+         background: rgba(248, 1, 1, 0.5);
+     }
+
+     .navbar-toggler{
+         padding:1px 5px;
+         font-size:18px;
+         line-height:0.3;
+         background:#fff;
+     }
+ }
+
+ @media only screen and (max-width:1020px){
+    .navbar-nav.ml-auto{
+        background: rgba(235, 19, 19, 0.5);
+    }
+
+    .navbar-toggler{
+        padding:1px 5px;
+        font-size:18px;
+        line-height:0.3;
+        background:#fff;
+    }
+}
+
+ .navbar-nav a:hover{
+    color:white;
+    background: rgba(240, 157, 157, 0.5);
+    padding:10px;
+    
+} 
+
+ .navbar-light .navbar-brand:hover{
+    background: rgba(248, 1, 1, 0.5);
+    padding:10px;
+ }
+
+   .navbar-light{
+    background: rgba(248, 1, 1, 0.5);
+ } 

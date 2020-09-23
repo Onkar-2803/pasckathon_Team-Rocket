@@ -9,7 +9,8 @@ class Chowk(models.Model):
         return self.chowk_name
 
 class Signal(models.Model):
-    signal_id = models.CharField(max_length=2, primary_key=True)
+    #signal_id = models.CharField(max_length=2, primary_key=True)
+    signal_id = models.PositiveSmallIntegerField(primary_key=True)
     chowk = models.ForeignKey(Chowk, on_delete=models.CASCADE)
 
     left_state = models.BooleanField(default=False)
@@ -20,12 +21,13 @@ class Signal(models.Model):
     bike_count = models.PositiveSmallIntegerField(blank=True, default=0)
     truck_count = models.PositiveSmallIntegerField(blank=True, default=0)
 
-    def __str__(self):
-        return self.signal_id
+    density = models.DecimalField(max_digits=4, decimal_places=4, blank=True,default=0.0)
 
-class Density(models.Model):
+    left_green_time = models.PositiveSmallIntegerField(blank=True, default=0)
+    right_green_time = models.PositiveSmallIntegerField(blank=True, default=0)
+    front_green_time = models.PositiveSmallIntegerField(blank=True, default=0)
+
+class NumPlate(models.Model):
     signal_id = models.ForeignKey(Signal, on_delete=models.CASCADE)
-    density = models.DecimalField(max_digits=4, decimal_places=4, blank=True)
-
-    def __str__(self):
-        return self.signal_id
+    num_plate = models.CharField(max_length=10, blank=True)
+    last_seen = models.DateTimeField(auto_now=True,blank=True)
