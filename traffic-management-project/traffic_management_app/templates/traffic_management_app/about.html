@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>About</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'traffic_management_app/css/about.css' %}">
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<title>About</title>
+</head>
+<body>
+
+</script>
+
+	<div class="container-fluid">
+		<div class="tron">
+			<a href="{% url 'home' %}"><h1 class="title">ABOUT</h1></a>
+		</div>
+		<div class="row">
+			<div class="col-lg-3 col-md-6 col-sm-12 about">
+
+				<div class="flip-box">
+  					<div class="flip-box-inner">
+    					<div class="flip-box-front">
+      							<h2>TRAFFIC DENSITY</h2>
+    					</div>
+    					<div class="flip-box-back">
+      							<p class="flip">The system determines the traffic density and smart timers are set in order to avoid unnecessarily long green signals and to have an efficient distribution of traffic.  </p>
+      							<p></p>
+      							<p></p>
+      							 <button class="button" onclick="window.location.href='#'"><span>See demo</span></button>
+    					</div>
+  					</div>
+				</div>
+
+				<div class="flip-box">
+  					<div class="flip-box-inner">
+    					<div class="flip-box-front">
+      							<h2>STOLEN VEHICLES</h2>
+    					</div>
+    					<div class="flip-box-back">
+      							<p class="flip2">Authorities will be able to find the stolen vehicles by cross-referencing the registration plates with the stored data.</p>
+      							 <button class="button" onclick="window.location.href={% url 'stolen_vehicle' %}"><span>See demo</span></button></h2>
+    					</div>
+  					</div>
+				</div>
+
+				<div class="flip-box">
+  					<div class="flip-box-inner">
+    					<div class="flip-box-front">
+      							<h2> FASTEST ROUTE</h2>
+    					</div>
+    				<div class="flip-box-back">
+      							<p class="flip3">Emergency vehicles will be able to determine the fastest route to the required destination with the help of this system.</p>
+      							 <button class="button" onclick="window.location.href='{% url 'shortest_path' %}'"><span>See demo</span></button></h2>
+    				</div>
+  				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+</body>
+</html>

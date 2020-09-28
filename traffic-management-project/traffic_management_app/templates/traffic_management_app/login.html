@@ -1,0 +1,83 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" ></script>
+    <link rel="stylesheet" href="{% static 'traffic_management_app/css/style.css' %}">
+    <style type="text/css">
+        .container{
+            margin-top: 100px;
+        }
+    </style>
+    <title>Log In</title>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" >
+        <a class="navbar-brand" href="{% url 'home' %}" class="logo">team rocket</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'about' %}">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'loginuser' %}">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'signupuser' %}">SignUp</a>
+              </li>
+          </ul>
+        </div>
+      </nav>
+
+    <section class="Form my-5 mx-5">
+        <div class="container">
+            <div class="row no-gutters" >
+                <div class="col-lg-5">
+                    <img src="{% static 'traffic_management_app/media/traf2.jpg' %}" class="img-fluid" alt=""/>
+                </div>
+                <div class="col-lg-7 px-5 pt-5">
+                    <h1 class="font-weight-bold py-2" >Login</h1>
+                    <h4>Sign in into your account</h4>
+                    <form method='post'>
+                      {% csrf_token %}
+                        <div class="form-row">
+                            <div class="col-lg-7">
+                                <input type="text" placeholder="Username" class="form-control my-3 p-3">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-7">
+                                <input type="password" placeholder="Password" class="form-control my-3 p-3">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-7">
+                                <button type="submit" class="btn1 mt-3 mb-5">Login</button>
+                            </div>
+                        </div>
+                        <a href="#">Forgot Password?</a>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+</body>
+</html>

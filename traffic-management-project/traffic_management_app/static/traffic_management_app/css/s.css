@@ -1,0 +1,49 @@
+*{
+  padding:0px;
+  margin:0px;
+}
+body{
+    background-color: black;
+}
+.center{
+  padding-left:18%;
+  margin-top:30px;
+}
+    .one{
+      position: absolute;
+      right:68%;
+      top:15%;
+    }
+
+    .two{
+      position: absolute;
+      right:68%;
+      bottom:15%;
+     
+    }
+
+    .three{
+      position:absolute;
+      left:68%;
+      top:15%;
+    }
+    
+    .four{
+      position: absolute;
+      left:68%;
+      bottom:15%;
+    }
+    .blue-rectangle {
+    background-color: rgba(194, 168, 135, 0.7);
+    padding: 5px 5px 5px 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    
+    }
+    
+    .blue-rectangle p{
+    color:rgb(3, 3, 2);
+    text-align: center;
+    text-transform: uppercase;
+    font-size:10px;
+    }

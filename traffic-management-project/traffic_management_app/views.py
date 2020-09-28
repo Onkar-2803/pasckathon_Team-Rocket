@@ -9,6 +9,30 @@ import cv2
 from .models import *
 from PIL import Image, ImageDraw
 
+def home(request):
+    return render(request, 'traffic_management_app/index.html')
+
+def about(request):
+    return render(request, 'traffic_management_app/about.html')
+
+def loginuser(request):
+    if request.method == 'GET':
+        return render(request, 'traffic_management_app/login.html')
+    else:
+        pass
+
+def signupuser(request):
+    if request.method == 'GET':
+        return render(request, 'traffic_management_app/signup.html')
+    else:
+        pass
+
+def stolen_vehicle(request):
+    if request.method == 'GET':
+        return render(request, 'traffic_management_app/stolen.html')
+    else:
+        pass
+
 def make_next_green(next_signal, time2):
     print('Inside make next green')
     i=next_signal
@@ -32,14 +56,7 @@ def make_next_green(next_signal, time2):
         #rint("Next Signal Left " + signal_state[1])
 
     time.sleep(prev_time)
-
-
-def status_of_signals(request):
-
-    signals = Signal.objects.all()
-    return render(request, 'traffic_management_app/home.html', {'signals' : signals})
-
-def detection(request):
+def detection():
     signals = Signal.objects.filter(signal_id__startswith='1')
     car_classifier = cv2.CascadeClassifier('/home/batsy/pasckathon_Team-Rocket/traffic-management-project/cascades/cascade_cars.xml')
     bike_classifier = cv2.CascadeClassifier('/home/batsy/pasckathon_Team-Rocket/traffic-management-project/cascades/cascade_bike.xml')
@@ -98,9 +115,7 @@ def detection(request):
         signal.save()
     #return signal_green_time
     return redirect('status_of_signals')
-
-
-def allocate_time(request):
+def allocate_time():
     signals = Signal.objects.all()
 
     for i in signals:
@@ -121,8 +136,7 @@ def allocate_time(request):
 
     print('Function Ends here')
     return redirect(status_of_signals)
-
-def detect_plate(request):
+def detect_plate():
     temp = 'MH12ED1433'
     numplate_classifier = cv2.CascadeClassifier('/home/batsy/pasckathon_Team-Rocket/traffic-management-project/cascades/indian_license_plate.xml')
     #image_2 = cv2.imread("/home/batsy/pasckathon_Team-Rocket/traffic-management-project/cascades/example.jpg",0)
@@ -277,10 +291,6 @@ def shortest_path(request):
             track_path.insert(0,start)
 
             if shortest_distance[goal]!=infinity:
-                #print("shortest distance is "+str(shortest_distance[goal])+" km")
-                #print("The fastest route is "+ str(track_path))
-                #print(type(str(track_path)))
-                #track_path_ans = str(track_path)
                 return str(track_path)
         #print(source, dest)
 
