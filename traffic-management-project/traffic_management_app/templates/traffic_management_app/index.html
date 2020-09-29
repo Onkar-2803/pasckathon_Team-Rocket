@@ -52,7 +52,7 @@
             <div class="col-md-4 col-sm-12">
 
                 <div class="card mx-auto">
-                    <a href="stolen.html"><img src="{% static 'traffic_management_app/media/th1.jpg' %}" alt="" class="img-fluid"></a>
+                    <a href="{% url 'stolen_vehicle' %}"><img src="{% static 'traffic_management_app/media/th1.jpg' %}" alt="" class="img-fluid"></a>
                     <div class="card-block">
                         <div class="card-title">
                             <h2>Stolen Cars</h2>
@@ -65,7 +65,7 @@
             <div class="col-md-4 col-sm-12">
 
                 <div class="card mx-auto">
-                    <a href="path.html"><img src="{% static 'traffic_management_app/media/g1.jpg' %}" alt="" class="img-fluid"></a>
+                    <a href="{% url 'shortest_path' %}"><img src="{% static 'traffic_management_app/media/g1.jpg' %}" alt="" class="img-fluid"></a>
                     <div class="card-block">
                         <div class="card-title">
                             <h2>Fastest Route</h2>

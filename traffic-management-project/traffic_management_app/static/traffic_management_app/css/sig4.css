@@ -37,7 +37,7 @@
   position: absolute;
   right:62%;
   top:34%;
-  
+
 }
 #sig2{
   position: absolute;
@@ -62,14 +62,14 @@
   background-color: #000;
   border-radius: 50%;
   margin: 3px auto;
-  
+
 }
 
 .timer-vert{
   height: 20px;
   width: 20px;
   background-color: #000;
-  margin-bottom: 5px auto; 
+  margin-bottom: 5px auto;
   margin-top: 5px auto;
  }
 
@@ -79,14 +79,14 @@
   background-color: #000;
   border-radius: 50%;
   margin: 1px auto;
-  
+
 }
 
 .timer-horz{
   height: 20px;
   width: 20px;
   background-color: #000;
-  
+
  }
 .arrow-down{
   border-left: 5px solid transparent;
@@ -126,35 +126,36 @@
       top:27%;
     }
 
-    .two{
+.two{
       position: absolute;
       right:62%;
       bottom:16%;
-     
-    }
 
-    .three{
+}
+
+.three{
       position:absolute;
       left:57%;
       top:22%;
-    }
-    
-    .four{
+}
+
+.four{
       position: absolute;
       left:58.5%;
       bottom:18%;
-    }
-    .blue-rectangle {
+}
+
+.blue-rectangle {
     background-color: #ffe6b3;
     padding: 15px 15px 15px 15px ;
     margin-bottom: 10px;
     border-radius: 5px;
-    
-    }
-    
-    .blue-rectangle p{
+
+}
+
+.blue-rectangle p{
     color:rgb(3, 3, 2);
     text-align: center;
     text-transform: uppercase;
     font-size:10px;
-    }
+}

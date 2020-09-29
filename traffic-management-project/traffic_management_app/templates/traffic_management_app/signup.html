@@ -47,7 +47,7 @@
         <div class="container">
             <div class="row no-gutters" >
                 <div class="col-lg-5">
-                    <img src="images/traf2.jpg" class="img-fluid" alt=""/>
+                    <img src="{% static 'traffic_management_app/media/traf2.jpg' %}" class="img-fluid" alt=""/>
                 </div>
                 <div class="col-lg-7 px-5 pt-5">
                     <h1 class="font-weight-bold py-2" >Sign Up</h1>
@@ -56,21 +56,21 @@
                       {% csrf_token %}
                         <div class="form-row">
                             <div class="col-lg-7">
-                                <input type="name" placeholder="First Name" class="form-control my-3 p-3">
+                                <input type="name" placeholder="First Name" id='fname' name='fname'class="form-control my-3 p-3">
                             </div>
                             <div class="col-lg-7">
-                                <input type="name" placeholder="Last Name" class="form-control my-3 p-3">
+                                <input type="name" placeholder="Last Name" id='lname' name='lname'class="form-control my-3 p-3">
                             </div>
                             <div class="col-lg-7">
-                                <input type="email" placeholder="Username" class="form-control my-3 p-3">
+                                <input type="text" placeholder="Username" id='username' name='username' class="form-control my-3 p-3">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-lg-7">
-                                <input type="password" placeholder="Password" class="form-control my-3 p-3">
+                                <input type="password" id='password1' name='password1' placeholder="Password" class="form-control my-3 p-3">
                             </div>
                              <div class="col-lg-7">
-                                <input type="password" placeholder="Confirm Password" class="form-control my-3 p-3">
+                                <input type="password" id='password2' name='password2' placeholder="Confirm Password" class="form-control my-3 p-3">
                             </div>
                         </div>
                         <div class="form-row">
@@ -78,7 +78,11 @@
                                 <button type="submit" class="btn1 mt-3 mb-5">Create Account</button>
                             </div>
                         </div>
-
+                        {% if  error  %}
+                        <div class="alert alert-danger" role="alert">
+                          {{ error }}
+                        </div>
+                        {% endif %}
 
                     </form>
                 </div>

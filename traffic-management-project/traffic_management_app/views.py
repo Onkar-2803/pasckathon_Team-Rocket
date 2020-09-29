@@ -8,6 +8,9 @@ import numpy as np
 import cv2
 from .models import *
 from PIL import Image, ImageDraw
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth import login, logout, authenticate
 
 def home(request):
     return render(request, 'traffic_management_app/index.html')
@@ -19,13 +22,31 @@ def loginuser(request):
     if request.method == 'GET':
         return render(request, 'traffic_management_app/login.html')
     else:
-        pass
+        user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
+        if user is None:
+            return render(request, 'traffic_management_app/login.html',{'error': 'Username or password incorrect '})
+        else:
+            login(request,user)
+            return redirect('home')
 
 def signupuser(request):
     if request.method == 'GET':
         return render(request, 'traffic_management_app/signup.html')
     else:
-        pass
+        if request.POST['password1'] == request.POST['password2']:
+            try:
+                user = User.objects.create_user(request.POST['username'], password=request.POST['password1'])
+                user.first_name = request.POST['fname']
+                user.last_name = request.POST['lname']
+                user.save()
+                login(request,user)
+                return redirect('home')
+            except IntegrityError:
+                return render(request, 'traffic_management_app/signup.html',{'error' : 'Username already exists :/'})
+        else:
+            return render(request, 'traffic_management_app/signup.html',{'error' : 'Passwords do not match '})
+def traffic_signal(request):
+    return render(request, 'traffic_management_app/sig4.html')
 
 def stolen_vehicle(request):
     if request.method == 'GET':

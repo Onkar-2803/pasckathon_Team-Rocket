@@ -26,4 +26,5 @@ urlpatterns = [
     path('login', views.loginuser, name='loginuser'),
     path('signup', views.signupuser, name='signupuser'),
     path('theft', views.stolen_vehicle, name='stolen_vehicle'),
+    path('traffic', views.traffic_signal, name='traffic_signal'), 
 ]

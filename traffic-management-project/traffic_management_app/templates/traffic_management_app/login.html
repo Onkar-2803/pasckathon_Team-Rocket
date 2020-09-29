@@ -57,12 +57,12 @@
                       {% csrf_token %}
                         <div class="form-row">
                             <div class="col-lg-7">
-                                <input type="text" placeholder="Username" class="form-control my-3 p-3">
+                                <input type="text" placeholder="Username" id='username' name='username' class="form-control my-3 p-3">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-lg-7">
-                                <input type="password" placeholder="Password" class="form-control my-3 p-3">
+                                <input type="password" placeholder="Password" id='password' name='password' class="form-control my-3 p-3">
                             </div>
                         </div>
                         <div class="form-row">
@@ -71,7 +71,11 @@
                             </div>
                         </div>
                         <a href="#">Forgot Password?</a>
-
+                        {% if  error  %}
+                        <div class="alert alert-danger" role="alert">
+                          {{ error }}
+                        </div>
+                        {% endif %}
                     </form>
                 </div>
             </div>
