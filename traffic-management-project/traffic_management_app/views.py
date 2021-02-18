@@ -1,16 +1,17 @@
 import time
 import pytesseract
 from pytesseract import Output
-from .functions import *
 from django.shortcuts import render, redirect, get_object_or_404
 import sys
 import numpy as np
 import cv2
 from .models import *
 from PIL import Image, ImageDraw
-from django.contrib.auth.decorators import login_required
+#from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
+import datetime
+from django.utils import timezone
 
 def home(request):
     return render(request, 'traffic_management_app/index.html')
@@ -45,14 +46,132 @@ def signupuser(request):
                 return render(request, 'traffic_management_app/signup.html',{'error' : 'Username already exists :/'})
         else:
             return render(request, 'traffic_management_app/signup.html',{'error' : 'Passwords do not match '})
+
 def traffic_signal(request):
     return render(request, 'traffic_management_app/sig4.html')
-
 def stolen_vehicle(request):
     if request.method == 'GET':
+        detect_plate()
         return render(request, 'traffic_management_app/stolen.html')
     else:
+        vehicles = NumPlate.objects.all()
+
+        for i in vehicles:
+            print('Checking Number Plate')
+            print(i.num_plate)
+            if i.num_plate == request.POST['number_plate']:
+                print('check')
+                sig_id = i.signal_id
+                last_seen = i.last_seen
+                print('signal id: ',sig_id , '\nLast Seen: ', last_seen)
+            else:
+                continue
         pass
+
+def shortest_path(request):
+    track_path_ans = ''
+    if request.method == 'GET':
+
+        return render(request, 'traffic_management_app/path.html',{ 'answer': track_path_ans})
+    else:
+        print('check')
+        print(request.POST.get('id1',False))
+
+        graph={
+            'a':{'b':3,'c':4,'d':7},
+            'b':{'c':1,'f':5,'a':3},
+            'c':{'f':6,'d':2,'a':4,'b':1},
+            'd':{'e':3,'g':6,'a':7,'c':2},
+            'e':{'g':3,'h':4,'d':3,'f':1},
+            'f':{'e':1,'h':8,'b':5,'c':6},
+            'g':{'h':2,'d':6,'e':3},
+            'h':{'g':2,'e':4,'f':8}
+        }
+
+        graph_den={
+            'a':{'b':0.46,'c':0.14,'d':0.27},
+            'b':{'c':0.86,'f':0.93,'a':0.46},
+            'c':{'f':0.64,'d':0.81,'a':0.14,'b':0.86},
+            'd':{'e':0.74,'g':0.5,'a':0.27,'c':0.81},
+            'e':{'g':0.54,'h':0.46,'d':0.74,'f':0.52},
+            'f':{'e':0.52,'h':0.33,'b':0.93,'c':0.64},
+            'g':{'h':0.26,'d':0.5,'e':0.54},
+            'h':{'g':0.26,'e':0.46,'f':0.33}
+
+        }
+
+
+        for id1,info in graph_den.items():
+
+            #print("\nroad-id:",id1)
+
+            for key in info:
+                #print(key+':',info[key])
+                if info[key]>0.75:
+                    info[key]=int(info[key]*20)
+                elif info[key]>0.30 and info[key]<0.30:
+                    info[key]=int(info[key]*15)
+                else:
+                    info[key]=int(info[key]*10)
+
+                #print(key+':',info[key])
+
+            for id2,info2 in graph.items():
+                for key in info:
+                    for key1 in info2:
+                        if id1==id2:
+                            if key==key1:
+                                info2[key1]=info2[key1]+info[key]
+
+
+        def dijsktra(graph,start,goal):
+            shortest_distance={}
+            track_predecessor={}
+            unseenNodes=graph
+            infinity=sys.maxsize
+            track_path=[]
+
+            for node in unseenNodes:
+                shortest_distance[node]=infinity
+            shortest_distance[start]=0
+
+            while unseenNodes:
+                min_distance=None
+
+                for node in unseenNodes:
+                    if min_distance is None:
+                        min_distance=node
+                    elif shortest_distance[node]<shortest_distance[min_distance]:
+                        min_distance=node
+
+                path_options=graph[min_distance].items()
+
+                for child,weight in path_options:
+                    if weight+shortest_distance[min_distance]<shortest_distance[child]:
+                        shortest_distance[child]=weight+shortest_distance[min_distance]
+                        track_predecessor[child]=min_distance
+
+                unseenNodes.pop(min_distance)
+
+            currentNode=goal
+
+            while currentNode!=start:
+                try:
+                    track_path.insert(0,currentNode)
+                    currentNode=track_predecessor[currentNode]
+
+                except KeyError:
+                    print("path is not reachable")
+                    break
+            track_path.insert(0,start)
+
+            if shortest_distance[goal]!=infinity:
+                return str(track_path)
+        #print(source, dest)
+
+        track_path_ans = dijsktra(graph,request.POST['id1'],request.POST['id2'])
+        #print(track_path_ans)
+        return render(request, 'traffic_management_app/path.html',{ 'answer': track_path_ans})
 
 def make_next_green(next_signal, time2):
     print('Inside make next green')
@@ -156,9 +275,9 @@ def allocate_time():
         i.left_state = i.right_state = i.front_state = False
 
     print('Function Ends here')
-    return redirect(status_of_signals)
+
 def detect_plate():
-    temp = 'MH12ED1433'
+
     numplate_classifier = cv2.CascadeClassifier('/home/batsy/pasckathon_Team-Rocket/traffic-management-project/cascades/indian_license_plate.xml')
     #image_2 = cv2.imread("/home/batsy/pasckathon_Team-Rocket/traffic-management-project/cascades/example.jpg",0)
     #plates = numplate_classifier.detectMultiScale(grey, 5.99)3
@@ -212,109 +331,5 @@ def detect_plate():
                     r_text += text[i]
                     i+=1
             print(r_text)
-            if ( temp == r_text):
-                print('Number Plate Found')
-def shortest_path(request):
-    track_path_ans = ''
-    if request.method == 'GET':
-
-        return render(request, 'traffic_management_app/path.html',{ 'answer': track_path_ans})
-    else:
-        print('check')
-        print(request.POST.get('id1',False))
-        graph={
-            'a':{'b':3,'c':4,'d':7},
-            'b':{'c':1,'f':5,'a':3},
-            'c':{'f':6,'d':2,'a':4,'b':1},
-            'd':{'e':3,'g':6,'a':7,'c':2},
-            'e':{'g':3,'h':4,'d':3,'f':1},
-            'f':{'e':1,'h':8,'b':5,'c':6},
-            'g':{'h':2,'d':6,'e':3},
-            'h':{'g':2,'e':4,'f':8}
-
-        }
-
-        graph_den={
-            'a':{'b':0.46,'c':0.14,'d':0.27},
-            'b':{'c':0.86,'f':0.93,'a':0.46},
-            'c':{'f':0.64,'d':0.81,'a':0.14,'b':0.86},
-            'd':{'e':0.74,'g':0.5,'a':0.27,'c':0.81},
-            'e':{'g':0.54,'h':0.46,'d':0.74,'f':0.52},
-            'f':{'e':0.52,'h':0.33,'b':0.93,'c':0.64},
-            'g':{'h':0.26,'d':0.5,'e':0.54},
-            'h':{'g':0.26,'e':0.46,'f':0.33}
-
-        }
-
-
-        for id1,info in graph_den.items():
-
-            #print("\nroad-id:",id1)
-
-            for key in info:
-                #print(key+':',info[key])
-                if info[key]>0.75:
-                    info[key]=int(info[key]*20)
-                elif info[key]>0.30 and info[key]<0.30:
-                    info[key]=int(info[key]*15)
-                else:
-                    info[key]=int(info[key]*10)
-
-                #print(key+':',info[key])
-
-            for id2,info2 in graph.items():
-                for key in info:
-                    for key1 in info2:
-                        if id1==id2:
-                            if key==key1:
-                                info2[key1]=info2[key1]+info[key]
-
-
-        def dijsktra(graph,start,goal):
-            shortest_distance={}
-            track_predecessor={}
-            unseenNodes=graph
-            infinity=sys.maxsize
-            track_path=[]
-
-            for node in unseenNodes:
-                shortest_distance[node]=infinity
-            shortest_distance[start]=0
-
-            while unseenNodes:
-                min_distance=None
-
-                for node in unseenNodes:
-                    if min_distance is None:
-                        min_distance=node
-                    elif shortest_distance[node]<shortest_distance[min_distance]:
-                        min_distance=node
-
-                path_options=graph[min_distance].items()
-
-                for child,weight in path_options:
-                    if weight+shortest_distance[min_distance]<shortest_distance[child]:
-                        shortest_distance[child]=weight+shortest_distance[min_distance]
-                        track_predecessor[child]=min_distance
-
-                unseenNodes.pop(min_distance)
-
-            currentNode=goal
-
-            while currentNode!=start:
-                try:
-                    track_path.insert(0,currentNode)
-                    currentNode=track_predecessor[currentNode]
-
-                except KeyError:
-                    print("path is not reachable")
-                    break
-            track_path.insert(0,start)
-
-            if shortest_distance[goal]!=infinity:
-                return str(track_path)
-        #print(source, dest)
-
-        track_path_ans = dijsktra(graph,request.POST['id1'],request.POST['id2'])
-        #print(track_path_ans)
-        return render(request, 'traffic_management_app/path.html',{ 'answer': track_path_ans})
+            plate = NumPlate(signal_id=Signal(pk=11),num_plate=r_text,last_seen=timezone.now())
+            plate.save()

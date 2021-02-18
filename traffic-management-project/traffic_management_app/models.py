@@ -30,4 +30,4 @@ class Signal(models.Model):
 class NumPlate(models.Model):
     signal_id = models.ForeignKey(Signal, on_delete=models.CASCADE)
     num_plate = models.CharField(max_length=10, blank=True)
-    last_seen = models.DateTimeField(auto_now=True,blank=True)
+    last_seen = models.DateTimeField(auto_now=False,blank=True)

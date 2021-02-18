@@ -9,7 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    <title>Document</title>
+    <title>Find my Car</title>
 
     <link rel="stylesheet" href="{% static 'traffic_management_app/css/stolen.css' %}" />
 </head>
@@ -39,7 +39,10 @@
         </div>
       </nav>
 
-    <div class="container" id="hero">
+    <div class="container" id="hero" style="">
+      <style media="screen">
+
+      </style>
         <h1>Find My Car</h1>
         <div class="row no-gutters">
             <div class="col-md-6 mx-auto">
@@ -48,7 +51,7 @@
                       {% csrf_token %}
                         <div class="form-row ">
                             <div class="col-lg-12">
-                                <input type="text" placeholder="Number Plate" class="form-control">
+                                <input type="text" id='number_plate' name='number_plate' placeholder="Number Plate" class="form-control">
                             </div>
                         </div>
                         <div class="form-row">
